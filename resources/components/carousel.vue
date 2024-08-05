@@ -1,12 +1,11 @@
 <template>
     <div>
         <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
-            <Slide v-for="slide in images" :key="slide">
+            <Slide v-for="(slide, index) in images" :key="index">
                 <div class="carousel__item">
-                    <img :src="`/images/image-product-${slide}.jpg`" alt="product-image">
+                    <img :src="`${slide}`" alt="product-image">
                 </div>
             </Slide>
-
             <template #addons>
                 <Navigation />
             </template>
@@ -14,17 +13,16 @@
         <div class="gallery__thumbnails">
             <Carousel id="thumbnails" :items-to-show="4" :wrap-around="false" v-model="currentSlide" ref="carousel">
                 <Slide v-for="(slide, index) in images" :key="index">
-                    <div class="carousel__item " @click="slideTo(slide - 1)">
+                    <div class="carousel__item " @click="slideTo(index + 1 - 1)">
                         <div class="child-thumbnails" :class="{ 'active-thumbnail': currentSlide === index }">
                             <div class="img-wrapper">
-                                <img :src="`/images/image-product-${slide}.jpg`" alt="product-images">
+                                <img :src="`${slide}`" alt="product-images">
                             </div>
                         </div>
                     </div>
 
                 </Slide>
             </Carousel>
-
         </div>
     </div>
 </template>
@@ -36,6 +34,7 @@ import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
 export default defineComponent({
+    props: ['images'],
     name: 'Gallery',
     components: {
         Carousel,
@@ -46,7 +45,6 @@ export default defineComponent({
     },
     data: () => ({
         currentSlide: 0,
-        images: ['1', '2', '3', '4']
     }),
     methods: {
         slideTo(val) {
@@ -80,6 +78,7 @@ export default defineComponent({
 
     .carousel__item {
         @include dflex(center, null);
+        cursor: pointer;
     }
 
     .carousel__item img {

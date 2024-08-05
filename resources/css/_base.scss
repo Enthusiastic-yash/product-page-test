@@ -3,10 +3,12 @@
     max-width: 1440px;
     margin: 0 auto;
     width: 100%;
+    min-height: 100vh;
 }
 
 .product {
     max-width: 1200px;
+    height: 100%;
     width: 100%;
     @include dflex(space-evenly, center);
     flex-direction: column;
@@ -94,7 +96,8 @@
 @media screen and (min-width: 1025px) {
     .product {
         flex-direction: row;
-        height: 100vh;
+        height: auto;
+        @include dflex(space-evenly, center);
 
         &__title {
             font-size: 48px;

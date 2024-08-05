@@ -2,26 +2,29 @@
     <div class="container">
         <div class="product">
             <div class="product__images">
-                <Carousel></Carousel>
+                <Carousel :images="images"></Carousel>
             </div>
             <div class="product__details">
                 <p class="product__subtitle">Sneaker company</p>
-                <h1 class="product__title">Fall Limited Edition Sneakers</h1>
-                <p class="product__description">These low-profile sneakers are your perfect casual wear companion.
-                    Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.</p>
+                <h1 class="product__title">{{ name }}</h1>
+                <p class="product__description">{{ description }}</p>
                 <div class="product__price-details">
-                    <p class="product__price">$125.00 <span class="product__discount">50%</span> </p>
-                    <p class="product__original_price">$250.00</p>
+                    <p class="product__price">${{ price.discounted }}
+                        <span v-if="discountedPercent" class="product__discount">
+                            {{ discountedPercent }}
+                        </span>
+                    </p>
+                    <p class="product__original_price">${{ price.full }}.00</p>
                 </div>
                 <div class="product__quantity-details">
                     <div class="product__quantity">
-                        <button class="product__quantity-minus" @click="decrease()">
+                        <button class="product__quantity-minus" @click="updateQuantity(-1)">
                             <img src="/images/icon-minus.svg" alt="minus-button">
                         </button>
 
                         <input class="product__quantity-input" type="number" min="0" v-model="quantity">
 
-                        <button class="product__quantity-plus" @click="increase()">
+                        <button class="product__quantity-plus" @click="updateQuantity(+1)">
                             <img src="/images/icon-plus.svg" alt="plus-button">
                         </button>
                     </div>
@@ -39,11 +42,8 @@
                     </Button>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </template>
 
 <script>
@@ -54,7 +54,18 @@ import Button from "../../components/button.vue"
 export default {
     data() {
         return {
-            quantity: 0
+            quantity: 0,
+            description: "",
+            discount: {
+                type: "",
+                amount: null
+            },
+            images: [],
+            name: "",
+            price: {
+                full: null,
+                discounted: null
+            },
         }
     },
 
@@ -64,15 +75,39 @@ export default {
     },
 
     methods: {
-        increase() {
-            this.quantity++
-        },
-        decrease() {
-            if (this.quantity > 0) {
-                this.quantity--
-            }
+        updateQuantity(amount) {
+            this.quantity = Math.max(0, this.quantity + amount)
         },
 
+        async getProduct() {
+            try {
+                let productsResponse = await axios.get(`/client/products/${this.$route.params.slug}`)
+                const productData = productsResponse.data.data;
+                this.description = productData.description;
+                this.discount.type = productData.discount.type;
+                this.discount.amount = productData.discount.amount;
+                this.images = productData.images;
+                this.name = productData.name;
+                this.price.full = productData.price.full;
+                this.price.discounted = productData.price.discounted;
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    },
+
+
+    computed: {
+        discountedPercent() {
+            if (this.discount.amount && this.discount.type === 'percent') {
+                return `${this.discount.amount}%`;
+            }
+            return '';
+        },
+    },
+    created() {
+        this.getProduct()
     }
 
 }
