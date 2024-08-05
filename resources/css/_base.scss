@@ -1,0 +1,134 @@
+.container {
+    @include dflex(center);
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.product {
+    max-width: 1200px;
+    width: 100%;
+    @include dflex(space-evenly, center);
+    flex-direction: column;
+
+    &__details {
+        padding: 20px;
+    }
+    &__subtitle {
+        color: $Orange;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 5px;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        margin-bottom: 20px;
+        color: $Very-dark-blue;
+    }
+    &__description {
+        margin-bottom: 20px;
+        color: $Dark-grayish-blue;
+        text-transform: capitalize;
+        text-align: left;
+        line-height: 1.5;
+    }
+    &__price-details {
+        @include dflex(space-between, center);
+        margin-bottom: 20px;
+    }
+    &__price {
+        font-size: 32px;
+        font-weight: 800;
+        color: $Very-dark-blue;
+        @include dflex(null, center);
+    }
+    &__discount {
+        color: $Orange;
+        font-size: medium;
+        margin-left: 20px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 900;
+        background-color: $Pale-orange;
+    }
+    &__original_price {
+        color: $Grayish-blue;
+        font-size: larger;
+        font-weight: 600;
+        text-decoration: line-through;
+        margin-left: 20px;
+    }
+    &__quantity {
+        @include dflex(space-between, center);
+        margin-bottom: 20px;
+        background-color: $Light-grayish-blue;
+        padding: 20px;
+        border-radius: 10px;
+
+        &-minus,
+        &-plus {
+            cursor: pointer;
+            @include border-outline-none;
+            background: transparent;
+            img {
+                width: 15px;
+            }
+        }
+
+        &__quantity-input {
+            @include border-outline-none;
+        }
+        input[type="number"] {
+            @include border-outline-none;
+            display: inline-block;
+            width: 100px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            background: transparent;
+        }
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .product {
+        flex-direction: row;
+        height: 100vh;
+
+        &__title {
+            font-size: 48px;
+        }
+
+        &__subtitle {
+            display: none;
+        }
+
+        &__images {
+            width: 400px;
+            position: relative;
+        }
+        &__details {
+            width: 500px;
+        }
+
+        &__quantity-details {
+            @include dflex(space-between, center);
+        }
+
+        &__quantity {
+            margin-bottom: 0;
+            padding: 15px 20px;
+        }
+
+        &__price-details {
+            flex-direction: column;
+            align-items: start;
+        }
+        &__original_price {
+            margin-left: 0;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    }
+}

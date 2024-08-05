@@ -3,21 +3,27 @@
 *,
 *::before,
 *::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   height: 100%;
 }
 
 /* Reapply the pointer cursor for anchor tags */
-a, button {
+a,
+button {
   cursor: revert;
 }
 
 /* Remove list styles (bullets/numbers) */
-ol, ul, menu {
+ol,
+ul,
+menu {
   list-style: none;
 }
 
@@ -33,7 +39,8 @@ table {
 }
 
 /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
-input, textarea {
+input,
+textarea {
   -webkit-user-select: auto;
 }
 
@@ -47,6 +54,12 @@ meter {
   -webkit-appearance: revert;
   -moz-appearance: revert;
        appearance: revert;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* preformatted text - use only for this feature */
@@ -96,4 +109,149 @@ meter {
 
 body {
   font-family: "Kumbh Sans", sans-serif;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.product {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+.product__details {
+  padding: 20px;
+}
+.product__subtitle {
+  color: hsl(26, 100%, 55%);
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+}
+.product__title {
+  margin-bottom: 20px;
+  color: hsl(220, 13%, 13%);
+}
+.product__description {
+  margin-bottom: 20px;
+  color: hsl(219, 9%, 45%);
+  text-transform: capitalize;
+  text-align: left;
+  line-height: 1.5;
+}
+.product__price-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.product__price {
+  font-size: 32px;
+  font-weight: 800;
+  color: hsl(220, 13%, 13%);
+  display: flex;
+  align-items: center;
+}
+.product__discount {
+  color: hsl(26, 100%, 55%);
+  font-size: medium;
+  margin-left: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 900;
+  background-color: hsl(25, 100%, 94%);
+}
+.product__original_price {
+  color: hsl(220, 14%, 75%);
+  font-size: larger;
+  font-weight: 600;
+  text-decoration: line-through;
+  margin-left: 20px;
+}
+.product__quantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: hsl(223, 64%, 98%);
+  padding: 20px;
+  border-radius: 10px;
+}
+.product__quantity-minus, .product__quantity-plus {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.product__quantity-minus img, .product__quantity-plus img {
+  width: 15px;
+}
+.product__quantity__quantity-input {
+  border: none;
+  outline: none;
+}
+.product__quantity input[type=number] {
+  border: none;
+  outline: none;
+  display: inline-block;
+  width: 100px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  background: transparent;
+}
+
+@media screen and (min-width: 1025px) {
+  .product {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .product__title {
+    font-size: 48px;
+  }
+  .product__subtitle {
+    display: none;
+  }
+  .product__images {
+    width: 400px;
+    position: relative;
+  }
+  .product__details {
+    width: 500px;
+  }
+  .product__quantity-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product__quantity {
+    margin-bottom: 0;
+    padding: 15px 20px;
+  }
+  .product__price-details {
+    flex-direction: column;
+    align-items: start;
+  }
+  .product__original_price {
+    margin-left: 0;
+    margin-top: 10px;
+    font-size: 16px;
+  }
 }

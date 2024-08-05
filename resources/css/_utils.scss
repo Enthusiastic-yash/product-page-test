@@ -1,0 +1,21 @@
+.mr-20 {
+    margin-right: 20px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+@mixin dflex($justify: null, $align: null) {
+    display: flex;
+    @if $justify != null {
+        justify-content: $justify;
+    }
+    @if $align != null {
+        align-items: $align;
+    }
+}
+
+@mixin border-outline-none() {
+    border: none;
+    outline: none;
+}
